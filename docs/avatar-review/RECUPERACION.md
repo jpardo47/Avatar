@@ -10,4 +10,4 @@ La versión `static/models/kaspian.glb` añade parpadeo, cejas, nariz respingada
 
 El editor local no depende de la disponibilidad del sitio Ready Player Me. Ofrece los rasgos y variantes incluidos, no el catálogo completo del antiguo creador. La exportación de ajustes es un perfil JSON que se aplica junto al GLB local.
 
-El ZIP GPTAvatar conserva otros modelos Unity (Seth y Teacher); no se usaron para esta adaptación porque fue posible recuperar Kaspian.
+El ZIP GPTAvatar traía otros modelos Unity (Seth y Teacher); no se usaron porque fue posible recuperar Kaspian, y el ZIP se eliminó de la copia local.

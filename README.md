@@ -7,7 +7,7 @@ python -m pip install -r requirements.txt
 python app.py
 ```
 
-Abre http://127.0.0.1:5000. No abras el HTML directamente. Después de instalar las dependencias, también puedes hacer doble clic en `iniciar.cmd`. Se conserva el comando `python app_with_index.py`.
+Abre http://127.0.0.1:5000. No abras el HTML directamente. Después de instalar las dependencias, también puedes hacer doble clic en `iniciar.cmd`.
 
 El proyecto funciona sin claves con respuestas locales **de demostración**, voz del navegador y el avatar original de Ready Player Me recuperado y adaptado. Pulsa **Probar voz y expresiones**. La voz necesita una voz instalada en el navegador/sistema; el reconocimiento de voz depende del navegador, de permisos y puede requerir Internet. Usa localhost o HTTPS para el micrófono.
 
@@ -41,7 +41,6 @@ Usa **Rostro**, **Medio cuerpo** o **Cuerpo completo** para cambiar el encuadre.
 
 ```text
 ├── app.py                  Servidor Flask: página, /health y /api/chat
-├── app_with_index.py       Alias del comando anterior
 ├── iniciar.cmd             Arranque con doble clic en Windows
 ├── requirements.txt
 ├── .env.example            Variables opcionales (copiar a .env)
@@ -54,14 +53,13 @@ Usa **Rostro**, **Medio cuerpo** o **Cuerpo completo** para cambiar el encuadre.
 │   ├── models/             Avatar original recuperado y versión con expresiones
 │   └── vendor/             Three.js 0.169.0 (MIT) y fuente Figtree (OFL)
 ├── tests/                  Pruebas del servidor, del modelo y de los ajustes
-├── tools/                  Preparación del avatar y descarga de dependencias;
-│                           tools/documents guarda utilidades antiguas fuera del arranque
+├── tools/                  Preparación del avatar y descarga de dependencias
 └── docs/                   Documentación original y registro de la recuperación
 ```
 
-La carpeta `legacy/` (proyectos Unity, bot anterior y ZIP de GPTAvatar) se conserva solo en local y está excluida en `.gitignore`.
+La carpeta `legacy/` (proyectos Unity antiguos, con la plantilla que usa `tools/prepare_avatar.py`) se conserva solo en local y está excluida en `.gitignore`.
 
-Se eliminaron servidores duplicados, clientes de voz de escritorio, integración de Telegram desconectada y la plantilla de pizzería. Las herramientas de documentos no son parte del chat actual y requieren sus propias dependencias.
+Se eliminaron servidores duplicados, clientes de voz de escritorio, integración de Telegram desconectada, la plantilla de pizzería, el bot anterior, el ZIP de GPTAvatar y las cachés de Unity.
 
 ## Verificación
 

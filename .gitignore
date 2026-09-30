@@ -13,11 +13,8 @@ __pycache__/
 # Node
 node_modules/
 
-# Proyectos antiguos (Unity, bots, ZIP): se conservan en local, no en el repositorio
+# Proyectos antiguos (Unity): se conservan en local, no en el repositorio
 legacy/
-Asistente virtual/
-Asistente virtual1234/
-Asistente_Virtual/
 *.zip
 
 # Sistema y editores
