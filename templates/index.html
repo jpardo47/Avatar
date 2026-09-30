@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Kaspian, avatar 3D que conversa sobre ingeniería biomédica.">
+  <title>Kaspian · Ingeniería biomédica</title>
+  <link rel="preload" href="/static/vendor/figtree/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script type="importmap">{"imports":{"three":"/static/vendor/three/three.module.js","three/addons/":"/static/vendor/three/addons/"}}</script>
+</head>
+<body>
+  <!-- Icon set: Lucide (ISC license), stroke 2 -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M22 12h-2.5a2 2 0 0 0-1.9 1.5l-2.4 8.3a.3.3 0 0 1-.5 0L9.3 2.2a.3.3 0 0 0-.5 0L6.4 10.5A2 2 0 0 1 4.5 12H2"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.5 21.7a.5.5 0 0 0 .9 0L22 2.6a.5.5 0 0 0-.6-.6L2.3 8.6a.5.5 0 0 0 0 .9l8 3.2a2 2 0 0 1 1.1 1.1z"/><path d="m21.9 2.1-10.9 11"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="m22 9-6 6M16 9l6 6"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 18.4a9 9 0 0 0 0-12.8"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-move" viewBox="0 0 24 24"><path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.8 9.8 0 0 0-6.7 2.7L3 8"/><path d="M3 3v5h5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#conversation">Ir a la conversación</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Kaspian, inicio">
+      <span class="brand-mark"><svg class="icon"><use href="#i-pulse"/></svg></span>
+      <span class="brand-name">Kaspian</span>
+      <span class="brand-area">Ingeniería biomédica</span>
+    </a>
+    <p id="health" class="health" role="status" data-mode="loading"><span class="health-dot" aria-hidden="true"></span><span id="health-text">Conectando…</span></p>
+  </header>
+
+  <main id="main">
+    <section class="avatar-panel" aria-labelledby="avatar-title">
+      <p class="eyebrow">Tu compañero de aprendizaje</p>
+      <h1 id="avatar-title">La tecnología tiene un lado humano.</h1>
+      <div id="avatar-stage">
+        <canvas id="avatar" tabindex="0" aria-label="Avatar 3D animado de Kaspian. Arrastra o usa las flechas izquierda y derecha para girarlo."></canvas>
+        <div class="view-controls" role="group" aria-label="Encuadre del avatar">
+          <button type="button" data-view="face" aria-pressed="false">Rostro</button><button type="button" data-view="portrait" aria-pressed="true">Medio cuerpo</button><button type="button" data-view="full" aria-pressed="false">Cuerpo completo</button>
+        </div>
+      </div>
+      <div class="avatar-caption"><span class="indicator" aria-hidden="true"></span><strong>Kaspian</strong><span id="avatar-status" role="status">Cargando avatar…</span></div>
+      <div class="avatar-toolbar">
+        <div class="zoom" role="group" aria-label="Zoom">
+          <button type="button" id="zoom-out" class="icon-button" aria-label="Alejar avatar"><svg class="icon"><use href="#i-minus"/></svg></button>
+          <button type="button" id="zoom-in" class="icon-button" aria-label="Acercar avatar"><svg class="icon"><use href="#i-plus"/></svg></button>
+        </div>
+        <button type="button" id="demo" class="button"><svg class="icon"><use href="#i-volume"/></svg>Probar voz y expresiones</button>
+      </div>
+      <button type="button" id="edit-avatar" class="button button-primary" aria-expanded="false" aria-controls="customizer" disabled><svg class="icon"><use href="#i-sliders"/></svg>Personalizar avatar</button>
+      <p class="hint"><svg class="icon"><use href="#i-move"/></svg>Arrastra el avatar para girarlo</p>
+    </section>
+
+    <section id="conversation" class="conversation" aria-labelledby="chat-title" tabindex="-1">
+      <p class="eyebrow">Conversemos</p>
+      <h2 id="chat-title">¿Qué quieres descubrir?</h2>
+      <p class="subtitle">Explora la ingeniería biomédica con Kaspian.</p>
+      <div id="chat" role="log" aria-live="polite" aria-label="Conversación">
+        <article class="message bot"><span>Kaspian</span><p>¡Hola! Soy Kaspian, creado por Yis, Steban y Sebastián. Hablemos de ingeniería biomédica. Puedes escribir o usar el micrófono.</p></article>
+      </div>
+      <div class="suggestions" role="group" aria-label="Preguntas sugeridas">
+        <button type="button" class="chip" data-question="¿Qué es la ingeniería biomédica?">¿Qué es la biomédica?<svg class="icon"><use href="#i-arrow"/></svg></button>
+        <button type="button" class="chip" data-question="¿Cuáles son las áreas de trabajo?">Áreas de trabajo<svg class="icon"><use href="#i-arrow"/></svg></button>
+      </div>
+      <form id="chat-form" class="composer">
+        <label class="sr-only" for="message">Tu pregunta</label>
+        <input id="message" maxlength="2000" placeholder="Escribe tu pregunta…" autocomplete="off" enterkeyhint="send" required>
+        <button id="send" type="submit" class="button button-primary" aria-label="Enviar pregunta"><svg class="icon"><use href="#i-send"/></svg><span>Enviar</span></button>
+      </form>
+      <div class="voice-controls">
+        <button type="button" id="mic" class="button" aria-pressed="false"><svg class="icon"><use href="#i-mic"/></svg><span id="mic-label">Usar micrófono</span></button>
+        <button type="button" id="stop" class="button button-ghost"><svg class="icon"><use href="#i-stop"/></svg>Detener voz</button>
+        <label class="toggle"><input id="voice-enabled" type="checkbox" checked> Responder con voz</label>
+      </div>
+      <p id="status" role="status">Listo para conversar</p>
+      <p id="notice" class="notice"></p>
+    </section>
+
+    <section id="customizer" class="customizer" hidden aria-labelledby="customizer-title">
+      <div class="editor-heading">
+        <div><p class="eyebrow">Estudio de avatar</p><h2 id="customizer-title">Hazlo tuyo.</h2></div>
+        <button type="button" id="close-editor" class="icon-button" aria-label="Volver a la conversación"><svg class="icon"><use href="#i-close"/></svg></button>
+      </div>
+      <p class="subtitle">Ajusta su apariencia y mira los cambios al instante.</p>
+      <div class="editor-tabs" role="tablist" aria-label="Categorías de personalización">
+        <button type="button" role="tab" id="tab-face" aria-selected="true" aria-controls="panel-face" data-tab="face">Rostro</button><button type="button" role="tab" id="tab-hair" aria-selected="false" aria-controls="panel-hair" data-tab="hair" tabindex="-1">Cabello</button><button type="button" role="tab" id="tab-outfit" aria-selected="false" aria-controls="panel-outfit" data-tab="outfit" tabindex="-1">Ropa</button>
+      </div>
+      <div id="panel-face" class="editor-category" role="tabpanel" aria-labelledby="tab-face">
+        <fieldset><legend>Tono de piel</legend><div class="swatches" data-palette="skin"></div><label class="color-label"><input type="color" data-setting="skin"> Color personalizado de piel</label></fieldset>
+        <fieldset><legend>Color de ojos</legend><div class="swatches" data-palette="eyes"></div><label class="color-label"><input type="color" data-setting="eyes"> Color personalizado de ojos</label></fieldset>
+        <div class="range"><label class="range-label" for="nose">Nariz respingada <output id="nose-value" for="nose"></output></label><input id="nose" type="range" min="0" max="1" step="0.05" data-setting="nose"><div class="range-ends" aria-hidden="true"><span>Natural</span><span>Más elevada</span></div></div>
+        <div class="range"><label class="range-label" for="faceWidth">Ancho del rostro <output id="faceWidth-value" for="faceWidth"></output></label><input id="faceWidth" type="range" min="-0.6" max="1" step="0.05" data-setting="faceWidth"><div class="range-ends" aria-hidden="true"><span>Estrecho</span><span>Amplio</span></div></div>
+      </div>
+      <div id="panel-hair" class="editor-category" role="tabpanel" aria-labelledby="tab-hair" hidden>
+        <fieldset><legend>Corte de cabello</legend>
+          <div class="hair-options">
+            <button type="button" data-hairstyle="taper"><svg viewBox="9 8 30 32" aria-hidden="true"><circle cx="24" cy="28" r="11"/><path class="hair" d="M12 26c0-9 5-14 12-14s12 5 12 14c-3-4-7-6-12-6s-9 2-12 6z"/></svg><strong>Taper fade</strong><small>Lacio · Laterales degradados</small></button>
+            <button type="button" data-hairstyle="classic"><svg viewBox="9 8 30 32" aria-hidden="true"><circle cx="24" cy="28" r="11"/><path class="hair" d="M11 31c-1-12 5-20 13-20s14 8 13 20c-1-5-3-9-5-10-4 2-12 2-16 0-2 1-4 5-5 10z"/></svg><strong>Clásico</strong><small>Lacio · Volumen uniforme</small></button>
+            <button type="button" data-hairstyle="cropped"><svg viewBox="9 8 30 32" aria-hidden="true"><circle cx="24" cy="28" r="11"/><path class="hair" d="M13.5 24c1.5-5.5 5-8.5 10.5-8.5s9 3 10.5 8.5c-3-2.5-6-3.5-10.5-3.5s-7.5 1-10.5 3.5z"/></svg><strong>Corto</strong><small>Lacio · Volumen reducido</small></button>
+          </div>
+        </fieldset>
+        <fieldset><legend>Color de cabello</legend><div class="swatches" data-palette="hair"></div><label class="color-label"><input type="color" data-setting="hair"> Color personalizado de cabello</label></fieldset>
+        <div class="range"><label class="range-label" for="hairLength">Volumen superior <output id="hairLength-value" for="hairLength"></output></label><input id="hairLength" type="range" min="0" max="1" step="0.05" data-setting="hairLength"></div>
+      </div>
+      <div id="panel-outfit" class="editor-category" role="tabpanel" aria-labelledby="tab-outfit" hidden>
+        <div class="garment-preview"><svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path class="garment" d="M22 10q10 8 20 0l10 7 9 24-10 5-7-18v27H20V28l-7 18-10-5 9-24Z"/><path class="garment-line" d="M23 10q9 12 18 0M20 50h24M5 37l10 5M49 42l10-5"/></svg><div><strong>Suéter de cuello redondo</strong><p>Tejido suave · Corte relajado</p></div></div>
+        <fieldset><legend>Color del suéter</legend><div class="swatches" data-palette="sweater"></div><label class="color-label"><input type="color" data-setting="sweater"> Color personalizado del suéter</label></fieldset>
+        <p class="editor-note">El pantalón y el calzado del avatar original se conservan. Usa «Cuerpo completo» para ver el conjunto.</p>
+      </div>
+      <div class="editor-footer">
+        <p id="editor-status" role="status">Los cambios se guardan en este navegador.</p>
+        <div class="editor-actions">
+          <button type="button" id="reset-avatar" class="button button-ghost"><svg class="icon"><use href="#i-reset"/></svg>Restablecer</button>
+          <button type="button" id="export-avatar" class="button"><svg class="icon"><use href="#i-download"/></svg>Exportar ajustes</button>
+          <label class="button import-label" for="import-avatar"><svg class="icon"><use href="#i-upload"/></svg>Importar ajustes<input id="import-avatar" type="file" accept=".json,application/json"></label>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

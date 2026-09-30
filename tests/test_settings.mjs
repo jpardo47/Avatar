@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {DEFAULTS,validateSettings} from '../static/js/settings.mjs';
+assert.deepEqual(validateSettings(null),DEFAULTS);
+assert.deepEqual(validateSettings([]),DEFAULTS);
+assert.equal(validateSettings({skin:'url(bad)',hairstyle:'invalid',nose:Infinity}).skin,DEFAULTS.skin);
+assert.equal(validateSettings({nose:5,faceWidth:-9}).nose,1);
+assert.equal(validateSettings({faceWidth:-9}).faceWidth,-.6);
+assert.equal(validateSettings({eyes:'#abcdef'}).eyes,'#abcdef');
+assert.equal(validateSettings({nose:'0.9'}).nose,DEFAULTS.nose);
+assert.equal(validateSettings({hairstyle:'cropped',hairLength:.4}).hairstyle,'cropped');
+console.log('Avatar settings: validation, limits and defaults passed.');

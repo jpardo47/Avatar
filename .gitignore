@@ -1,0 +1,29 @@
+# Secretos y configuración local
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Proyectos antiguos (Unity, bots, ZIP): se conservan en local, no en el repositorio
+legacy/
+Asistente virtual/
+Asistente virtual1234/
+Asistente_Virtual/
+*.zip
+
+# Sistema y editores
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
